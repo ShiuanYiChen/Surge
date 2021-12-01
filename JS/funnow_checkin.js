@@ -1,13 +1,13 @@
 var checkinURL = {
     url: 'https://api-go.myfunnow.com/v2/funnow/auth',
     headers: {
-        'Cookie': $persistentStore.read("CookieFunNow") + ';',
+        'Cookie': 'FunNowGoSession=' + $persistentStore.read("CookieFunNow") + ';',
     }
 };
 var pointsInfoURL = {
     url: 'https://api-go.myfunnow.com/v2/funnow/member',
     headers: {
-        'Cookie': $persistentStore.read("CookieFunNow") + ';',
+        'Cookie': 'FunNowGoSession=' + $persistentStore.read("CookieFunNow") + ';',
     },
 };
 
