@@ -1,0 +1,10 @@
+#!name=Funnow checkin
+#!desc= v20211201
+
+[Script]
+cron "10 0 * * *" script-path=https://raw.githubusercontent.com/ShiuanYiChen/Surge/main/JS/funnow_checkin.js, wake-system=1, timeout=30
+cron "11 0 * * *" script-path=https://raw.githubusercontent.com/ShiuanYiChen/Surge/main/JS/funnow_click-news.js, wake-system=1, timeout=30
+funnow_cookie.js = type=http-request,pattern=^https:\/\/api-go.myfunnow.com\/v2\/funnow\/member\/beinvited$,script-path=https://raw.githubusercontent.com/ShiuanYiChen/Surge/main/JS/funnow_cookie.js,script-update-interval=-1
+
+[MITM]
+hostname = %APPEND% api-go.myfunnow.com
