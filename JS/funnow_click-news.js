@@ -1,7 +1,7 @@
 var funnowNewsURL = {
     url: 'https://api-go.myfunnow.com/v2/funnow/news',
     headers: {
-        'Cookie': $persistentStore.read("CookieFunNow") + ';',
+        'Cookie': 'FunNowGoSession=' + $persistentStore.read("CookieFunNow") + ';',
     }
 };
 var newsIDs = [];
@@ -25,7 +25,7 @@ var funnowNewsClick = () => {
         let obj = {
             url: 'https://api-go.myfunnow.com/v2/funnow/news/click',
             headers: {
-                'Cookie': $persistentStore.read("CookieFunNow") + ';',
+                'Cookie': 'FunNowGoSession=' + $persistentStore.read("CookieFunNow") + ';',
             },
             body: {
                 'news_id': id
