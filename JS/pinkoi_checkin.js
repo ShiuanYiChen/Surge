@@ -35,7 +35,7 @@ function getPointsInfo() {
         } else {
             if (response.status == 200) {
                 let obj = JSON.parse(data);
-                var point = obj["result"]["balance"];
+                var point = obj["result"][0]["balance"];
                 $notification.post("Pinkoi 已登入", "", "P Coins已累積 " + point + " 🪙");
                 $done();
             } else {
