@@ -1,11 +1,11 @@
 var checkinURL = {
-    url: 'https://www.pinkoi.com/apiv2/mission_game/daily_signin',
+    url: 'https://api.pinkoi.com/coin/get_coins',
     headers: {
         'Cookie': 'sessionid=' + $persistentStore.read("CookiePinkoi") + ';',
     }
 };
 var pointsInfoURL = {
-    url: 'https://www.pinkoi.com/apiv2/mission_game/monthly_reward',
+    url: 'https://api.pinkoi.com/coin/get_coins',
     headers: {
         'Cookie': 'sessionid=' + $persistentStore.read("CookiePinkoi") + ';',
     },
