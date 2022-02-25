@@ -1,5 +1,5 @@
 var checkinURL = {
-    url: 'https://api.pinkoi.com/coin/get_coins',
+    url: 'https://www.pinkoi.com/apiv2/mission_game/daily_signin',
     headers: {
         'Cookie': 'sessionid=' + $persistentStore.read("CookiePinkoi") + ';',
     }
