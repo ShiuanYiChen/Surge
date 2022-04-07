@@ -12,7 +12,7 @@ var pointsInfoURL = {
 };
 
 function checkin() {
-    $httpClient.get(checkinURL, function(error, response, data) {
+    $httpClient.post(checkinURL, function(error, response, data) {
         if (error) {
             $notification.post('Pinkoi Cookie', '', '連線錯誤‼️');
             $done();
