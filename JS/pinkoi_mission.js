@@ -154,8 +154,46 @@ function achieveMission(mission) {
       }
     });
   }
-  // if (missionKey === 'add_fav_shop') {
-  // }
+  if (missionKey === 'add_fav_shop') {
+    let payload = {
+      ...payloadHeaders,
+      body: {
+        sid: 'nuphy',
+      },
+      url: 'https://www.pinkoi.com/apiv2/shop/fav',
+    };
+    $httpClient.post(payload, function (error, response, data) {
+      if (error) {
+        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+        $done();
+      } else {
+        if (response.status == 200) {
+          payload.url = 'https://www.pinkoi.com/apiv2/shop/unfav';
+          $httpClient.post(payload, function (error, response, data) {
+            if (error) {
+              $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+              $done();
+            } else {
+              if (response.status == 200) {
+                return;
+              } else {
+                $notification.post(
+                  'Pinkoi Cookie 已過期‼️',
+                  '',
+                  '請重新登入 🔓'
+                );
+                $done();
+              }
+            }
+          });
+          return;
+        } else {
+          $notification.post('Pinkoi Cookie 已過期‼️', '', '請重新登入 🔓');
+          $done();
+        }
+      }
+    });
+  }
 }
 
 function claimReward(mission) {
