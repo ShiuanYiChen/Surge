@@ -6,7 +6,7 @@ let missionListURL = {
 };
 
 function completeMission(missionList) {
-  missionList.forEach((mission) => {
+  missionList.forEach(mission => {
     achieveMission(mission);
     claimReward(mission);
   });
@@ -34,7 +34,7 @@ function getMissionList() {
 function achieveMission(mission) {
   let missionKey = mission['mission_key'];
   let missionRule = mission['rule'];
-  let missionPayload = {
+  let payloadHeaders = {
     headers: {
       Cookie: 'sessionid=' + $persistentStore.read('CookiePinkoi') + ';',
     },
@@ -49,10 +49,13 @@ function achieveMission(mission) {
       /https:\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w\u4E00-\u9FA5.,@?^=%&:\/~+#-]*)/g
     );
 
-    URLs.forEach((url) => {
-      missionPayload.url = url;
+    URLs.forEach(url => {
+      let payload = {
+        ...payloadHeaders,
+        url: url,
+      };
 
-      $httpClient.get(missionPayload, function (error, response, data) {
+      $httpClient.get(payload, function (error, response, data) {
         if (error) {
           $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
           $done();
@@ -67,6 +70,92 @@ function achieveMission(mission) {
       });
     });
   }
+
+  if (missionKey === 'add_fav_item') {
+    let payload = {
+      ...payloadHeaders,
+      body: {
+        tid: 'sdpgB9qS',
+      },
+      url: 'https://www.pinkoi.com/apiv2/item/fav',
+    };
+    $httpClient.post(payload, function (error, response, data) {
+      if (error) {
+        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+        $done();
+      } else {
+        if (response.status == 200) {
+          payload.url = 'https://www.pinkoi.com/apiv2/item/unfav';
+          $httpClient.post(payload, function (error, response, data) {
+            if (error) {
+              $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+              $done();
+            } else {
+              if (response.status == 200) {
+                return;
+              } else {
+                $notification.post(
+                  'Pinkoi Cookie 已過期‼️',
+                  '',
+                  '請重新登入 🔓'
+                );
+                $done();
+              }
+            }
+          });
+          return;
+        } else {
+          $notification.post('Pinkoi Cookie 已過期‼️', '', '請重新登入 🔓');
+          $done();
+        }
+      }
+    });
+  }
+
+  if (missionKey === 'add_to_favlist') {
+    let payload = {
+      ...payloadHeaders,
+      body: {
+        tid: 'sdpgB9qS',
+        name: 'pinkoi-surge',
+        is_public: 1,
+      },
+      url: 'https://www.pinkoi.com/apiv2/favlist/add',
+    };
+    $httpClient.post(payload, function (error, response, data) {
+      if (error) {
+        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+        $done();
+      } else {
+        if (response.status == 200) {
+          payload.url = 'https://www.pinkoi.com/apiv2/favlist/delete';
+          $httpClient.post(payload, function (error, response, data) {
+            if (error) {
+              $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+              $done();
+            } else {
+              if (response.status == 200) {
+                return;
+              } else {
+                $notification.post(
+                  'Pinkoi Cookie 已過期‼️',
+                  '',
+                  '請重新登入 🔓'
+                );
+                $done();
+              }
+            }
+          });
+          return;
+        } else {
+          $notification.post('Pinkoi Cookie 已過期‼️', '', '請重新登入 🔓');
+          $done();
+        }
+      }
+    });
+  }
+  // if (missionKey === 'add_fav_shop') {
+  // }
 }
 
 function claimReward(mission) {
