@@ -120,7 +120,7 @@ function achieveMission(mission) {
         name: 'pinkoi-surge',
         is_public: 1,
       },
-      url: 'https://www.pinkoi.com/apiv2/favlist/add',
+      url: 'https://www.pinkoi.com/apiv3/favlist/add',
     };
     $httpClient.post(payload, function (error, response, data) {
       if (error) {
@@ -128,7 +128,7 @@ function achieveMission(mission) {
         $done();
       } else {
         if (response.status == 200) {
-          payload.url = 'https://www.pinkoi.com/apiv2/favlist/delete';
+          payload.url = 'https://www.pinkoi.com/apiv3/favlist/delete';
           $httpClient.post(payload, function (error, response, data) {
             if (error) {
               $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
