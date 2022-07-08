@@ -8,7 +8,17 @@ let missionListURL = {
 function completeMission(missionList) {
   missionList.forEach(mission => {
     achieveMission(mission)
-    claimReward(mission)
+  })
+  [
+      'search_hot_keyword',
+      'browse_three_subcategory',
+      'view_topic',
+      'add_fav_item',
+      'add_to_favlist',
+      'add_fav_shop',
+      'weekly_bonus'
+  ].forEach(missionKey => {
+    claimReward(missionKey)
   })
   $notification.post('Pinkoi Cookie 任務完成')
 }
@@ -81,8 +91,7 @@ function achieveMission(mission) {
     }
     $httpClient.post(payload, function (error, response, data) {
       if (error) {
-        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️')
-        $done()
+        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️') $done()
       } else {
         if (response.status == 200) {
           payload.url = 'https://www.pinkoi.com/apiv2/item/unfav'
@@ -190,14 +199,12 @@ function achieveMission(mission) {
         } else {
           $notification.post('Pinkoi Cookie 已過期‼️', '', '請重新登入 🔓')
           $done()
-        }
-      }
+        } }
     })
   }
 }
 
-function claimReward(mission) {
-  let missionKey = mission['mission_key']
+function claimReward(missionKey) {
   let claimRewardPayload = {
     url: 'https://www.pinkoi.com/apiv2/mission_game/redeem',
     headers: {
