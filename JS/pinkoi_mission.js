@@ -91,7 +91,8 @@ function achieveMission(mission) {
     }
     $httpClient.post(payload, function (error, response, data) {
       if (error) {
-        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️') $done()
+        $notification.post('Pinkoi任務失敗‼️', '', '連線錯誤‼️');
+        $done()
       } else {
         if (response.status == 200) {
           payload.url = 'https://www.pinkoi.com/apiv2/item/unfav'
