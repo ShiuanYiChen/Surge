@@ -8,7 +8,7 @@ let missionListURL = {
 function completeMission(missionList) {
   missionList.forEach(mission => {
     achieveMission(mission)
-  })
+  });
   [
       'search_hot_keyword',
       'browse_three_subcategory',
