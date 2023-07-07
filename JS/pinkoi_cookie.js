@@ -1,5 +1,5 @@
-if ($request.headers['Cookie']) {
-    const cookie = $request.headers['Cookie'];
+if ($request.headers['cookie']) {
+    const cookie = $request.headers['cookie'];
     const pinkoi_token = cookie.split('sessionid=')[1].split(';')[0];
     const saveCookie = $persistentStore.write(pinkoi_token, 'CookiePinkoi');
     if (!saveCookie) {
